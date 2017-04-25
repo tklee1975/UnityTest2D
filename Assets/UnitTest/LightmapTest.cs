@@ -5,15 +5,19 @@ using UnityEngine.UI;
 using SimpleTDD;
 
 public class LightmapTest : BaseTest {
-	[Test]
-	public void test1()
-	{
-		Debug.Log("###### TEST 1 ######");
+	private GameObject mLight;
+
+	void Start() {
+		mLight = GameObject.Find("earth/Point light");
 	}
 
 	[Test]
-	public void test2()
+	public void ToggleLight()
 	{
-		Debug.Log("###### TEST 2 ######");
+		if(mLight.activeSelf) {
+			mLight.SetActive(false);
+		} else {
+			mLight.SetActive(true);
+		}
 	}
 }
