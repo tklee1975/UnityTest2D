@@ -30,8 +30,8 @@ public class SpaceShip : MonoBehaviour {
 		float angle = transform.eulerAngles.magnitude * Mathf.Deg2Rad;
 
 		Vector3 myPos = transform.position;
-		myPos.x += (Mathf.Sin (angle) * speed) * delta;
-		myPos.y -= (Mathf.Cos (angle) * speed) * delta;
+		myPos.x += (Mathf.Sin (angle) * mCurrentSpeed) * delta;
+		myPos.y -= (Mathf.Cos (angle) * mCurrentSpeed) * delta;
 
 
 		// Clamping
@@ -81,10 +81,12 @@ public class SpaceShip : MonoBehaviour {
 			mCurrentSpeed = Mathf.Min(mCurrentSpeed, speed);
 
 		} else if(Input.GetKey(KeyCode.DownArrow)){
-			mCurrentSpeed = 0;
+			mCurrentSpeed -= force * Time.deltaTime;
+			mCurrentSpeed = Mathf.Max(mCurrentSpeed, -speed);
+
+
 		} else {
-			mCurrentSpeed -= force * 0.5f * Time.deltaTime;
-			mCurrentSpeed = Mathf.Max(mCurrentSpeed, 0);
+			mCurrentSpeed = 0;
 		}
 		HandleShipMove();
 
