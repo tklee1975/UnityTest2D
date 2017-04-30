@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceShip : MonoBehaviour {
+public class PlayerShip : MonoBehaviour {
 	public float rotateSpeed = 45;
 	public float speed = 5;
 	public float force = 1f;
+	public float brakeFactor = 3f;
 	public Bounds bound = new Bounds(new Vector3(0, 2, 0), new Vector3(15, 10, 0));
 	private float mCurrentSpeed = 0;
+	private KeyCode mLastKey = KeyCode.None;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -66,6 +70,23 @@ public class SpaceShip : MonoBehaviour {
 	}
 
 
+	void HandleDirectionChange(KeyCode key)
+	{
+		if(mLastKey == KeyCode.None) {
+			mLastKey = key;
+		}
+
+		if(key != mLastKey){ 
+			mLastKey = key;
+
+			Vector3 angle = new Vector3(0, 0, 180);
+			transform.Rotate(angle);
+		}
+
+	}
+
+
+
 	void Update()
 	{
 		// Controlling the Angle 
@@ -76,20 +97,36 @@ public class SpaceShip : MonoBehaviour {
 		} 
 
 		// Controlling the Speed
-		if(Input.GetKey(KeyCode.UpArrow)) { 
+		if(Input.GetKey(KeyCode.UpArrow)) {
 			mCurrentSpeed += force * Time.deltaTime;;
 			mCurrentSpeed = Mathf.Min(mCurrentSpeed, speed);
-
-		} else if(Input.GetKey(KeyCode.DownArrow)){
-			mCurrentSpeed -= force * Time.deltaTime;
-			mCurrentSpeed = Mathf.Max(mCurrentSpeed, -speed);
-
-
-		} else {
-			mCurrentSpeed = 0;
+		} else if(Input.GetKey(KeyCode.DownArrow)) { 
+			mCurrentSpeed -= force * brakeFactor * Time.deltaTime;
+			mCurrentSpeed = Mathf.Max(mCurrentSpeed, 0);
 		}
+
 		HandleShipMove();
+
 
 		// 
 	}
+
+	void Explode()
+	{
+		GameObject.Destroy(this.gameObject);
+	}
+
+	// Possible Collide 
+	void OnCollisionEnter2D(Collision2D coll) {
+		Debug.Log("collision detected: hit by " + coll.gameObject.tag);
+
+		if(coll.gameObject.tag == "Enemy") {
+			Explode();	
+		}
+
+//		if (coll.gameObject.tag == "Enemy") {
+//			coll.gameObject.SendMessage("ApplyDamage", 10);
+//		}
+	}
+
 }
