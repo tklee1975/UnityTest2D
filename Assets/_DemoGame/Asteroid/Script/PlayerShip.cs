@@ -10,12 +10,28 @@ public class PlayerShip : MonoBehaviour {
 	public Bounds bound = new Bounds(new Vector3(0, 2, 0), new Vector3(15, 10, 0));
 	private float mCurrentSpeed = 0;
 	private KeyCode mLastKey = KeyCode.None;
-
+	public GameObject missilePrefab;
 
 
 	// Use this for initialization
 	void Start () {
 		
+	}
+
+	public void Fire()
+	{
+		GameObject missile = Instantiate(missilePrefab, 
+			transform.position, Quaternion.identity) as GameObject;
+
+
+		missile.transform.eulerAngles = transform.eulerAngles;
+		missile.transform.SetParent(transform.parent);
+
+		PlayerMissile missileBehaviour = missile.GetComponent<PlayerMissile>();
+		missileBehaviour.enableMove = true;
+		if(speed > missileBehaviour.moveSpeed) {
+			missileBehaviour.moveSpeed = speed;
+		}
 	}
 
 	public void SetSmokeVisible(bool show)
@@ -107,7 +123,10 @@ public class PlayerShip : MonoBehaviour {
 
 		HandleShipMove();
 
-
+		// Control the fire
+		if(Input.GetKeyDown(KeyCode.Space)) {
+			Fire();
+		}
 		// 
 	}
 

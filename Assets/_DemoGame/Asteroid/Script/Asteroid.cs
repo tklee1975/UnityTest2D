@@ -118,4 +118,20 @@ public class Asteroid : MonoBehaviour {
 		RotateSelf(Time.deltaTime);
 		Move(Time.deltaTime);
 	}
+
+	void Explode()
+	{
+		GameObject.Destroy(this.gameObject);
+	}
+
+
+	// Possible Collide 
+	void OnCollisionEnter2D(Collision2D coll) {
+		Debug.Log("Asteroid: collision detected: hit by " + coll.gameObject.tag);
+
+		if(coll.gameObject.tag == "Missile") {
+			Explode();	
+			GameObject.Destroy(coll.gameObject);
+		}
+	}
 }
