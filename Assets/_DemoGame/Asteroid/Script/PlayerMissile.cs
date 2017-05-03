@@ -72,7 +72,7 @@ public class PlayerMissile : MonoBehaviour {
 
 	// Possible Collide 
 	void OnCollisionEnter2D(Collision2D coll) {
-		Debug.Log("Missile: collision detected: hit by " + coll.gameObject.tag);
+		//Debug.Log("Missile: collision detected: hit by " + coll.gameObject.tag);
 
 	}
 

@@ -6,6 +6,13 @@ using SimpleTDD;
 
 public class AsteroidSpaceTest : BaseTest {
 	[Test]
+	public void ResetPlayer()
+	{
+		AsteroidSpace space = GameObject.Find("AsteroidSpace").GetComponent<AsteroidSpace>();
+		space.ResetPlayer();
+	}
+
+	[Test]
 	public void StartSpawner()
 	{
 		AsteroidSpace space = GameObject.Find("AsteroidSpace").GetComponent<AsteroidSpace>();

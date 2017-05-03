@@ -7,6 +7,8 @@ public class AsteroidSpace : MonoBehaviour {
 
 	List<AsteroidSpawner> mSpawnerList = new List<AsteroidSpawner>();
 
+	private PlayerShip mPlayerShip;
+
 	public void OnDrawGizmos() {
 		Gizmos.DrawWireCube(bound.center, bound.size);
 	}
@@ -18,12 +20,43 @@ public class AsteroidSpace : MonoBehaviour {
 			AsteroidSpawner spawner = obj.GetComponent<AsteroidSpawner>();
 			mSpawnerList.Add(spawner);
 		}
+
+		mPlayerShip = transform.FindChild("PlayerShip").GetComponent<PlayerShip>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+	public void SetPlayerActive(bool flag) {
+		mPlayerShip.gameObject.SetActive(flag);
+	}
+
+	public void ResetPlayer() {
+		Debug.Log("ResetPlayer!!!");
+		mPlayerShip.transform.position = Vector3.zero;
+		mPlayerShip.isHitting = false;
+	}
+
+	public void StartGame() {
+		Debug.Log("StartGame!!!");
+		SetPlayerActive(true);
+		ResetPlayer();
+		StartSpawn();
+	}
+
+	public void StopGame() {
+		SetPlayerActive(false);
+		StopSpawn();
+
+		GameObject[] objList = GameObject.FindGameObjectsWithTag("Enemy");
+
+		foreach(GameObject o in objList) {
+			GameObject.Destroy(o);
+		}
+	}
+
 
 	public void StartSpawn() {
 		foreach(AsteroidSpawner spawner in mSpawnerList) {

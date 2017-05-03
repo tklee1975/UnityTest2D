@@ -16,6 +16,7 @@ public class Asteroid : MonoBehaviour {
 	public float selfRotateSpeed = 50.0f;
 
 	public bool hasSeen = false;
+	public bool isDebugMode = false;
 
 	public Bounds bound; 
 
@@ -121,7 +122,10 @@ public class Asteroid : MonoBehaviour {
 
 	void Explode()
 	{
+		
 		GameObject.Destroy(this.gameObject);
+
+		AsteroidManager.Instance.HandleEnemyHit();
 	}
 
 

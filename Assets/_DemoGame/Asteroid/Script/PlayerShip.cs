@@ -11,7 +11,9 @@ public class PlayerShip : MonoBehaviour {
 	private float mCurrentSpeed = 0;
 	private KeyCode mLastKey = KeyCode.None;
 	public GameObject missilePrefab;
+	public bool isHitting = false; 
 
+	public bool isDebugMode;
 
 	// Use this for initialization
 	void Start () {
@@ -132,14 +134,34 @@ public class PlayerShip : MonoBehaviour {
 
 	void Explode()
 	{
-		GameObject.Destroy(this.gameObject);
+		if(gameObject.activeInHierarchy == false) {
+			return;
+		}
+
+		isHitting = true;
+
+		//GameObject.Destroy(this.gameObject);
+		if(isDebugMode) {
+			transform.position = Vector3.zero;
+			return;
+		}
+
+		// Actual 
+		Debug.Log("PlayerShip.Explode");
+		AsteroidManager.Instance.HandlePlayerHit();
+
 	}
 
 	// Possible Collide 
 	void OnCollisionEnter2D(Collision2D coll) {
 		Debug.Log("collision detected: hit by " + coll.gameObject.tag);
 
+
 		if(coll.gameObject.tag == "Enemy") {
+			if(isHitting) {
+				return;
+			}
+			GameObject.Destroy(coll.gameObject);
 			Explode();	
 		}
 
