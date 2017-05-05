@@ -99,7 +99,7 @@ public class AsteroidUI : MonoBehaviour {
 
 	private void HideGUI(GameObject obj)
 	{
-		Vector3 outSidePos = new Vector3(0, 500, 0);
+		Vector3 outSidePos = new Vector3(0, 1000, 0);
 		obj.transform.localPosition = outSidePos;
 	}
 
