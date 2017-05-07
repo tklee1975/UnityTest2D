@@ -44,10 +44,12 @@ public class AsteroidUI : MonoBehaviour {
 	}
 
 	public void PlayClicked() {
+		AsteroidManager.Audio.PlayUIClick();
 		DoSetOnPlayCallback(false);
 	}
 
 	public void PlayAgainClicked() {
+		AsteroidManager.Audio.PlayUIClick();
 		DoSetOnPlayCallback(true);
 	}
 		

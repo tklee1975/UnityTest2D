@@ -13,6 +13,12 @@ public class PlayerShipTest : BaseTest {
 		mPlayerShip = GameObject.Find("PlayerShip").GetComponent<PlayerShip>();
 	}
 
+	[Test]
+	public void testExplode()
+	{
+		mPlayerShip.ShowExplodeParticle();
+	}
+
 
 	[Test]
 	public void testMissile()

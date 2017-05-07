@@ -6,6 +6,7 @@ public class AsteroidMain : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		AsteroidManager.Instance.StartStateMain();
+		AsteroidManager.Audio.PlayGameMusic();
 	}
 	
 	// Update is called once per frame

@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+[RequireComponent(typeof(AudioManager))]
 public class AsteroidManager : MonoBehaviour {
 
 
 	public AsteroidUI UI = null;
 	public AsteroidSpace PlaySpace = null;
+
+	private static AudioManager mAudioManager;
+	public static AudioManager Audio
+	{
+		get { return mAudioManager; }
+	}
+
 
 	private int mLife = 0;
 	public int Life {
@@ -39,6 +47,9 @@ public class AsteroidManager : MonoBehaviour {
 		if(mInstance == null) {
 			mInstance = this;
 		}
+
+		mAudioManager = GetComponent<AudioManager>();
+
 		DontDestroyOnLoad(gameObject);	// note: AsteroidManager rely on the GameObject
 	}
 
@@ -113,7 +124,9 @@ public class AsteroidManager : MonoBehaviour {
 	{
 		SetupSingleton();
 
-		UI.SetOnPlayCallback(OnPlayClicked);
+		if(UI != null) {
+			UI.SetOnPlayCallback(OnPlayClicked);
+		}
 	}
 
 	// 

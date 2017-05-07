@@ -125,6 +125,8 @@ public class Asteroid : MonoBehaviour {
 		
 		GameObject.Destroy(this.gameObject);
 
+		AsteroidManager.Audio.PlayAsteroidHit();
+
 		AsteroidManager.Instance.HandleEnemyHit();
 	}
 

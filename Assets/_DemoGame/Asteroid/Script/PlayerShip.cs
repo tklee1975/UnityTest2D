@@ -13,15 +13,19 @@ public class PlayerShip : MonoBehaviour {
 	public GameObject missilePrefab;
 	public bool isHitting = false; 
 
+	private ParticleSystem mEmitterExplode;
+
 	public bool isDebugMode;
 
 	// Use this for initialization
 	void Start () {
-		
+		mEmitterExplode = transform.FindChild("particleExplode").GetComponent<ParticleSystem>();
 	}
 
 	public void Fire()
 	{
+		AsteroidManager.Audio.PlayFire();
+
 		GameObject missile = Instantiate(missilePrefab, 
 			transform.position, Quaternion.identity) as GameObject;
 
@@ -132,7 +136,7 @@ public class PlayerShip : MonoBehaviour {
 		// 
 	}
 
-	void Explode()
+	public void Explode()
 	{
 		if(gameObject.activeInHierarchy == false) {
 			return;
@@ -146,10 +150,19 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 
+
+
 		// Actual 
 		Debug.Log("PlayerShip.Explode");
 		AsteroidManager.Instance.HandlePlayerHit();
+		AsteroidManager.Audio.PlayShipHit();
 
+
+	}
+
+	public void ShowExplodeParticle()
+	{
+		mEmitterExplode.Play();
 	}
 
 	// Possible Collide 
