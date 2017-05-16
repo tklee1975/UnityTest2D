@@ -5,6 +5,13 @@ using UnityEngine.UI;
 using SimpleTDD;
 
 public class AsteroidTest : BaseTest {
+	private GameObject asteroidObject;
+	void Start()
+	{
+		asteroidObject = GameObject.Find("PlaySpace/asteroid");
+		Debug.Log("Asteroid object=" + asteroidObject);
+	}
+
 	[Test]
 	public void SpawnAsteroid() {
 		GameObject obj = GameObject.Find("AsteroidSpawner");
@@ -13,6 +20,14 @@ public class AsteroidTest : BaseTest {
 		Debug.Log("spawner=" + spawner);
 
 		spawner.SpawnAsteroid();
+	}
+
+
+	[Test]
+	public void TestExplode() {
+		Asteroid asteroid = asteroidObject.GetComponent<Asteroid>();
+
+		asteroid.ShowExplosion();
 	}
 
 	[Test]

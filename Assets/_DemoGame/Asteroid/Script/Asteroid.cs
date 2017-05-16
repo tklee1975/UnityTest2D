@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ExplodeBehaviour))]
 public class Asteroid : MonoBehaviour {
 	public enum Size {
 		Tiny,
@@ -28,6 +29,11 @@ public class Asteroid : MonoBehaviour {
 		// Define the bound
 		bound = CamHelper.getCameraBounds();
 		bound.Expand(2);
+	}
+
+	public void ShowExplosion()
+	{
+		GetComponent<ExplodeBehaviour>().ShowExplosion();
 	}
 
 	public void OnDrawGizmos() {
@@ -128,6 +134,8 @@ public class Asteroid : MonoBehaviour {
 		AsteroidManager.Audio.PlayAsteroidHit();
 
 		AsteroidManager.Instance.HandleEnemyHit();
+
+		ShowExplosion();
 	}
 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ExplodeBehaviour))]
 public class PlayerShip : MonoBehaviour {
 	public float rotateSpeed = 45;
 	public float speed = 5;
@@ -19,7 +20,12 @@ public class PlayerShip : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		mEmitterExplode = transform.FindChild("particleExplode").GetComponent<ParticleSystem>();
+		//mEmitterExplode = transform.FindChild("particleExplode").GetComponent<ParticleSystem>();
+	}
+
+	public void ShowExplosion()
+	{
+		GetComponent<ExplodeBehaviour>().ShowExplosion();
 	}
 
 	public void Fire()
@@ -156,7 +162,7 @@ public class PlayerShip : MonoBehaviour {
 		Debug.Log("PlayerShip.Explode");
 		AsteroidManager.Instance.HandlePlayerHit();
 		AsteroidManager.Audio.PlayShipHit();
-
+		ShowExplosion();
 
 	}
 
