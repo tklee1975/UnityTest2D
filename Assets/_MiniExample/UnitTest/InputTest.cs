@@ -19,12 +19,16 @@ public class InputTest : BaseTest {
 	private TestCase mTestCase = TestCase.TestKeyClick;
 	private GameObject mTestObject;
 	private Text mTestNameText;
+	private Text mTestHelpText;
 
 	void Start() {
 		mTestObject = GameObject.Find("TestObject");
 
 		GameObject testObject = GameObject.Find("TestGUI/TestText");
 		mTestNameText = testObject.GetComponent<Text>();
+
+
+		mTestHelpText = GameObject.Find("TestGUI/HelpText").GetComponent<Text>();
 
 		//TestKeyClick();
 		TestButton();
@@ -67,12 +71,19 @@ public class InputTest : BaseTest {
 		mTestNameText.text = name;
 	}
 
+	private void SetTestHelp(string helpMessage) {
+		mTestHelpText.text = "<HELP>\n" + helpMessage;
+	}
+
 	[Test]
 	public void TestKeyClick()
 	{
 		Debug.Log("Testing Key");
 		mTestCase = TestCase.TestKeyClick;
+
 		SetTestName("Testing KeyClick");
+		SetTestHelp("Click Up/Down/Left/Right to move the star");
+
 	}
 
 	[Test]
@@ -81,6 +92,8 @@ public class InputTest : BaseTest {
 		Debug.Log("Testing Key");
 		mTestCase = TestCase.TestKeyPress;
 		SetTestName("Testing KeyPress");
+
+		SetTestHelp("Press Down Up/Down/Left/Right to move the star");
 	}
 
 	[Test]
@@ -89,6 +102,8 @@ public class InputTest : BaseTest {
 		Debug.Log("Testing Button");
 		mTestCase = TestCase.TestButton;
 		SetTestName("Testing Button");
+
+		SetTestHelp("Press Down Up/Down/Left/Right to move the star\nQ to drop fire, W to drop Shine");
 	}
 
 	[Test]
