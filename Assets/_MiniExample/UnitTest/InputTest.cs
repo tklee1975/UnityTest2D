@@ -11,6 +11,7 @@ public class InputTest : BaseTest {
 		TestKeyClick,
 		TestButton,
 		TestTouch,
+		TestMouse,
 	}
 
 	public GameObject shineParticle;
@@ -112,6 +113,14 @@ public class InputTest : BaseTest {
 		Debug.Log("Testing TestTouch");
 		mTestCase = TestCase.TestTouch;
 		SetTestName("Testing Touch");
+	}
+
+	[Test]
+	public void TestMouse()
+	{
+		Debug.Log("Testing TestMouse");
+		mTestCase = TestCase.TestMouse;
+		SetTestName("Testing Mouse");
 	}
 
 //	void MoveStar(Vector2 dir) {
@@ -239,6 +248,32 @@ public class InputTest : BaseTest {
 		}
 	}
 
+	void UpdateForTestMouse()
+	{
+		// 
+		if(Input.GetMouseButton(0)) {
+			Debug.Log("Left pressed: pos=" + Input.mousePosition); 
+			Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			worldPos.z = 0;
+			SpawnFire(worldPos);
+			mTestObject.transform.position = worldPos;
+
+		} else if(Input.GetMouseButton(1)) {
+			Debug.Log("Mid pressed: pos=" + Input.mousePosition); 
+		} else if(Input.GetMouseButton(2)) {
+			Debug.Log("Right pressed: pos=" + Input.mousePosition); 
+		}
+
+
+		if(Input.GetMouseButtonDown(0)) {
+			Debug.Log("Left Mouse Down: pos=" + Input.mousePosition); 
+		}
+
+		if(Input.GetMouseButtonUp(0)) {
+			Debug.Log("Left Mouse Up: pos=" + Input.mousePosition); 
+		}
+	}
+
 
 	void Update() {
 		switch(mTestCase) {
@@ -259,6 +294,11 @@ public class InputTest : BaseTest {
 
 			case TestCase.TestTouch: {
 				UpdateForTestTouch();
+				break;
+			}
+
+			case TestCase.TestMouse: {
+				UpdateForTestMouse();
 				break;
 			}
 		}

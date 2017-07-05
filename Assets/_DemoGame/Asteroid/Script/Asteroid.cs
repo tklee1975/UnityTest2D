@@ -24,7 +24,7 @@ public class Asteroid : MonoBehaviour {
 	private Transform mSpriteTransform;
 
 	void Start() {
-		mSpriteTransform = transform.FindChild("image");
+		mSpriteTransform = transform.Find("image");
 
 		// Define the bound
 		bound = CamHelper.getCameraBounds();

@@ -21,7 +21,7 @@ public class AsteroidSpace : MonoBehaviour {
 			mSpawnerList.Add(spawner);
 		}
 
-		mPlayerShip = transform.FindChild("PlayerShip").GetComponent<PlayerShip>();
+		mPlayerShip = transform.Find("PlayerShip").GetComponent<PlayerShip>();
 	}
 	
 	// Update is called once per frame

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using SimpleTDD;
 
-public class GUITest : BaseTest {
+public class UIDragDropTest : BaseTest {
 	[Test]
 	public void test1()
 	{
@@ -16,24 +16,4 @@ public class GUITest : BaseTest {
 	{
 		Debug.Log("###### TEST 2 ######");
 	}
-
-	[Test]
-	public void test3()
-	{
-		Debug.Log("###### TEST 2 ######");
-	}
-
-	[Test]
-	public void test4()
-	{
-		Debug.Log("###### TEST 2 ######");
-	}
-
-
-	[Test]
-	public void test5()
-	{
-		Debug.Log("###### TEST 2 ######");
-	}
-
 }
